@@ -1,12 +1,12 @@
 # Bandeja de salida
 
-[Inicio](Home) · Anterior: [Bandeja de entrada](Bandeja-de-entrada) · Siguiente: [Concurrencia común](Concurrencia-comun)
+[Inicio](Home.md) · Anterior: [Bandeja de entrada](Bandeja-de-entrada.md) · Siguiente: [Concurrencia común](Concurrencia-comun.md)
 
 La bandeja de salida es **una sola cola** de `oe` posiciones (opción `-oe`). La llenan los tres hilos analizadores y la vacían los procesos `rep`.
 
 ## 1. Formato de la cola
 
-Buffer circular de `oe` elementos `Slot` (ver [Memoria compartida](Memoria-compartida)), precedido de `OutQueueCtl`:
+Buffer circular de `oe` elementos `Slot` (ver [Memoria compartida](Memoria-compartida.md)), precedido de `OutQueueCtl`:
 
 | Campo | Función |
 |---|---|

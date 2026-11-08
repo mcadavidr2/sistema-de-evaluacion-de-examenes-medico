@@ -1,6 +1,6 @@
 # Programas y línea de comandos
 
-[Inicio](Home) · Siguiente: [Memoria compartida](Memoria-compartida)
+[Inicio](Home.md) · Siguiente: [Memoria compartida](Memoria-compartida.md)
 
 ## 1. Programas
 
@@ -48,7 +48,7 @@ evaluator rep  [-s <string>] { -i <segundos> | -m <cantidad> }
 
 Todos los valores enteros deben ser mayores que cero. Si no lo son, `init` imprime el error y termina con código 1.
 
-> **Supuestos que proponemos al docente** (ver [Proyecto, pruebas y reparto](Proyecto-pruebas-y-trabajo)):
+> **Supuestos que proponemos al docente** (ver [Proyecto, pruebas y reparto](Proyecto-pruebas-y-trabajo.md)):
 > 1. `-ee` aparece en la sinopsis pero el enunciado no lo describe. Lo definimos como el **tiempo máximo que una muestra puede esperar** antes de ser descartada con resultado `?`.
 > 2. `-s` significa «reactivo de piel» en `init` y «nombre del segmento» en `ctrl` y `rep`. Se respeta tal cual la sinopsis del enunciado. `reg` usa `-n`.
 

@@ -2,9 +2,9 @@
 
 **Responsable:** Mateo Cadavid
 
-[Inicio](Home) · Anterior: [Concurrencia común](Concurrencia-comun) · Siguiente: [Concurrencia en Windows](Concurrencia-Windows)
+[Inicio](Home.md) · Anterior: [Concurrencia común](Concurrencia-comun.md) · Siguiente: [Concurrencia en Windows](Concurrencia-Windows.md)
 
-Esta página aplica a Linux el diseño de [Concurrencia común](Concurrencia-comun). Todo el código está en `src/platform/linux/`.
+Esta página aplica a Linux el diseño de [Concurrencia común](Concurrencia-comun.md). Todo el código está en `src/platform/linux/`.
 
 ## 1. Primitivas usadas
 
@@ -24,7 +24,7 @@ Esta página aplica a Linux el diseño de [Concurrencia común](Concurrencia-com
 - **Nombre:** `/` + nombre del segmento (por ejemplo `/evaluator`). Aparece en `/dev/shm/evaluator`.
 - **Creación en `init`:** `shm_open(nombre, O_CREAT | O_EXCL | O_RDWR, 0600)`, luego `ftruncate(tamaño)` y `mmap`.
 - **Apertura en `reg`, `ctrl` y `rep`:** `shm_open(nombre, O_RDWR, 0)`, sin `O_CREAT`. Si falla con `ENOENT`, el sistema no existe y el programa termina con código 2.
-- **Tamaño:** el de la fórmula de [Memoria compartida](Memoria-compartida). Los `sem_t` y `pthread_mutex_t` forman parte de `InQueueCtl`, `OutQueueCtl` y `Header`, así que ya están contados.
+- **Tamaño:** el de la fórmula de [Memoria compartida](Memoria-compartida.md). Los `sem_t` y `pthread_mutex_t` forman parte de `InQueueCtl`, `OutQueueCtl` y `Header`, así que ya están contados.
 
 ### Segmento huérfano
 
@@ -49,9 +49,9 @@ En Linux el segmento **sobrevive** si `init` muere sin limpiar. Por eso, cuando 
 ## 4. Señales y terminación
 
 - En el hilo principal de `init` se bloquean `SIGINT` y `SIGTERM` con `pthread_sigmask` **antes de crear los demás hilos**, de modo que todos hereden la máscara. Así la señal la recibe solo el hilo principal.
-- El hilo principal espera con `sigwait`. Al recibir la señal ejecuta la [terminación ordenada](Concurrencia-comun).
+- El hilo principal espera con `sigwait`. Al recibir la señal ejecuta la [terminación ordenada](Concurrencia-comun.md).
 - `SIGPIPE` se ignora, por si la salida de `rep` se redirige a un proceso que termina.
-- `reg`, `ctrl` y `rep` también salen limpiamente con `SIGINT`: cierran con `munmap` y no tocan los semáforos.
+- `reg`, `ctrl` y `rep` no instalan manejador: con `SIGINT` terminan con la acción por omisión. El kernel libera su mapeo y no tocan los semáforos; si murieron con un mutex tomado, el siguiente lo recibe con `EOWNERDEAD` y lo recupera.
 
 ### Limpieza al terminar `init`
 

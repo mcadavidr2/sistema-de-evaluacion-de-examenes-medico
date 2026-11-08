@@ -1,6 +1,6 @@
 # Proyecto, pruebas y reparto de trabajo
 
-[Inicio](Home) · Anterior: [Mecanismo de los comandos](Mecanismo-de-los-comandos)
+[Inicio](Home.md) · Anterior: [Mecanismo de los comandos](Mecanismo-de-los-comandos.md)
 
 ## 1. Jerarquía del proyecto
 
@@ -30,15 +30,17 @@ La documentación de diseño está en esta wiki. Una copia en Markdown va en `do
 
 Las dos personas implementan **la misma interfaz**, cada una para su sistema. Así el código de `common/`, `init/`, `reg/`, `ctrl/` y `rep/` no tiene `#ifdef`.
 
-| Clase | Operaciones |
+| Elemento | Operaciones (archivo `src/platform/platform.h`) |
 |---|---|
-| `ShmSegment` | `create(nombre, tamaño)`, `open(nombre)`, `data()`, `close()`, `destroy()` |
-| `Sem` | `init(valor)`, `wait()`, `timedWait(ms)`, `post()` |
-| `IpcMutex` | `init()`, `lock()`, `unlock()` |
-| `Terminator` | `install(callback)`, `waitForSignal()` |
-| `Launcher` | `run(programa, argumentos)` para el wrapper |
+| `ShmSegment` | `create(nombre, tamaño, ownerAlive)`, `open(nombre)`, `data()`, `size()`, `close()`, `destroy()` |
+| Semáforos (`PlatformSem`) | `semInit(s, nombreObjeto, inicial, máximo)`, `semWait(s, ms)`, `semPost(s)`, `semDestroy(s)` |
+| Mutex (`PlatformMutex`) | `mutexInit(m, nombreObjeto)`, `mutexLock(m)`, `mutexUnlock(m)`, `mutexDestroy(m)` |
+| Terminación | `termInstall()`, `termWait(ms)`, `notifyShutdown()` |
+| Procesos | `currentPid()`, `pidAlive(pid)`, `ignoreBrokenPipe()`, `selfDir()`, `runProgram(ruta, argumentos)` |
 
-Detalle de cada una: [Concurrencia en Linux](Concurrencia-Linux) y [Concurrencia en Windows](Concurrencia-Windows).
+`semWait` devuelve `Ok`, `Timeout`, `Shutdown` o `Error`; `mutexLock` devuelve `Ok`, `Recovered` (el dueño anterior murió con el mutex) o `Error`.
+
+Detalle de cada una: [Concurrencia en Linux](Concurrencia-Linux.md) y [Concurrencia en Windows](Concurrencia-Windows.md).
 
 ## 3. Reparto de trabajo
 

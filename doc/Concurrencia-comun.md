@@ -1,8 +1,8 @@
 # Concurrencia: diseño común a Linux y Windows
 
-[Inicio](Home) · Anterior: [Bandeja de salida](Bandeja-de-salida) · Siguientes: [Linux](Concurrencia-Linux) y [Windows](Concurrencia-Windows)
+[Inicio](Home.md) · Anterior: [Bandeja de salida](Bandeja-de-salida.md) · Siguientes: [Linux](Concurrencia-Linux.md) y [Windows](Concurrencia-Windows.md)
 
-Esta página define **qué** se sincroniza y con qué reglas. Las páginas de [Linux](Concurrencia-Linux) y [Windows](Concurrencia-Windows) dicen **con qué primitivas** se implementa en cada sistema.
+Esta página define **qué** se sincroniza y con qué reglas. Las páginas de [Linux](Concurrencia-Linux.md) y [Windows](Concurrencia-Windows.md) dicen **con qué primitivas** se implementa en cada sistema.
 
 ## 1. Objetos de sincronización entre procesos
 
@@ -18,7 +18,7 @@ Esta página define **qué** se sincroniza y con qué reglas. Las páginas de [L
 | `reactiveMutex` | libre | `Header.reactive[3]` (analizadores, robot y `ctrl update`) |
 | `statusMutex` | libre | Tabla de estado |
 
-Los protocolos productor–consumidor están en [Bandeja de entrada](Bandeja-de-entrada) y [Bandeja de salida](Bandeja-de-salida).
+Los protocolos productor–consumidor están en [Bandeja de entrada](Bandeja-de-entrada.md) y [Bandeja de salida](Bandeja-de-salida.md).
 
 ## 2. Sincronización interna de `eval-init` (entre hilos)
 
@@ -30,7 +30,7 @@ Estos objetos no se comparten con otros procesos. Se implementan igual en ambos 
 | `refillQ` | Cola FIFO de solicitudes de recarga para el robot, con `std::mutex` y `std::condition_variable` |
 | `refillDone[3]` | Una variable de condición por analizador, para avisarle que su recarga terminó |
 
-Cada vez que un hilo cambia una muestra de lugar, actualiza la [tabla de estado](Memoria-compartida) bajo `statusMutex`.
+Cada vez que un hilo cambia una muestra de lugar, actualiza la [tabla de estado](Memoria-compartida.md) bajo `statusMutex`.
 
 ## 3. Reglas contra interbloqueos
 

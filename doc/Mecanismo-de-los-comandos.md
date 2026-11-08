@@ -1,21 +1,21 @@
 # Mecanismo de los comandos
 
-[Inicio](Home) · Anterior: [Concurrencia en Windows](Concurrencia-Windows) · Siguiente: [Proyecto, pruebas y reparto](Proyecto-pruebas-y-trabajo)
+[Inicio](Home.md) · Anterior: [Concurrencia en Windows](Concurrencia-Windows.md) · Siguiente: [Proyecto, pruebas y reparto](Proyecto-pruebas-y-trabajo.md)
 
-Los nombres de semáforos y mutex son los de [Concurrencia común](Concurrencia-comun).
+Los nombres de semáforos y mutex son los de [Concurrencia común](Concurrencia-comun.md).
 
 ## 1. `init`
 
 1. Analiza y valida las opciones. Todos los enteros deben ser mayores que cero.
-2. Intenta crear el segmento. Si ya existe y está vivo termina con código 4. En Linux, si es un residuo, lo elimina y lo vuelve a crear. Ver [Linux](Concurrencia-Linux) y [Windows](Concurrencia-Windows).
-3. Calcula el tamaño (ver [Memoria compartida](Memoria-compartida)), lo crea y lo inicializa: cabecera, colas de entrada y de salida, tabla de estado y objetos de sincronización.
+2. Intenta crear el segmento. Si ya existe y está vivo termina con código 4. En Linux, si es un residuo, lo elimina y lo vuelve a crear. Ver [Linux](Concurrencia-Linux.md) y [Windows](Concurrencia-Windows.md).
+3. Calcula el tamaño (ver [Memoria compartida](Memoria-compartida.md)), lo crea y lo inicializa: cabecera, colas de entrada y de salida, tabla de estado y objetos de sincronización.
 4. Guarda su pid en `Header.evaluatorPid` y escribe `Header.magic` al final.
 5. Crea los hilos: `i` de entrada, 3 analizadores y 1 robot.
-6. Se queda ocupando la consola. Si `EVAL_LOG=1` imprime los eventos. Espera la señal de terminación y ejecuta la [terminación ordenada](Concurrencia-comun).
+6. Se queda ocupando la consola. Si `EVAL_LOG=1` imprime los eventos. Espera la señal de terminación y ejecuta la [terminación ordenada](Concurrencia-comun.md).
 
 ### Hilo de entrada `k`
 
-Ver [Bandeja de entrada](Bandeja-de-entrada), sección 5.
+Ver [Bandeja de entrada](Bandeja-de-entrada.md), sección 5.
 
 ### Hilo analizador (uno por tipo `t`)
 
@@ -69,7 +69,7 @@ El almacén se asume con existencias ilimitadas. Un viaje lleva reactivo de **un
 
 1. Abre el segmento. Si no existe, termina con código 2.
 2. Lee los registros de los archivos indicados o de la entrada estándar (`-`). Un archivo que no existe se ignora sin mensaje.
-3. Formato de cada línea: `<cola> {B|D|S} <cantidad>` (ver [Bandeja de entrada](Bandeja-de-entrada)).
+3. Formato de cada línea: `<cola> {B|D|S} <cantidad>` (ver [Bandeja de entrada](Bandeja-de-entrada.md)).
 4. Para cada registro válido toma un id con `idMutex` y lo inserta con el protocolo productor. Si la cola está llena, se bloquea hasta que haya espacio.
 5. **Salida:**
    - Con entrada estándar imprime el id de cada muestra aceptada, un entero por línea.
@@ -107,5 +107,5 @@ Para no tomar varios mutex a la vez, `all` ejecuta los cuatro listados uno tras 
 1. Abre el segmento. Si no existe, termina con código 2.
 2. **`-i <seg>`:** durante `<seg>` segundos consume los reportes que lleguen. Espera `outFull` con el tiempo que queda como límite. Al vencer el tiempo termina.
 3. **`-m <n>`:** consume exactamente `<n>` reportes. Si todavía no hay suficientes, **espera** hasta completarlos.
-4. Cada consumo sigue el protocolo consumidor de [Bandeja de salida](Bandeja-de-salida) e imprime `[id i k r]`.
+4. Cada consumo sigue el protocolo consumidor de [Bandeja de salida](Bandeja-de-salida.md) e imprime `[id i k r]`.
 5. Si el sistema termina mientras espera, imprime un mensaje y sale con código 5.

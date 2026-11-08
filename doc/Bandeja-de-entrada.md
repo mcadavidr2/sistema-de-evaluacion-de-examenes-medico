@@ -1,12 +1,12 @@
 # Bandeja de entrada
 
-[Inicio](Home) · Anterior: [Memoria compartida](Memoria-compartida) · Siguiente: [Bandeja de salida](Bandeja-de-salida)
+[Inicio](Home.md) · Anterior: [Memoria compartida](Memoria-compartida.md) · Siguiente: [Bandeja de salida](Bandeja-de-salida.md)
 
 La bandeja de entrada está formada por **`i` colas** (opción `-i`). Cada una tiene `ie` posiciones (opción `-ie`). Las llena `reg` y las vacía un hilo de `eval-init` dedicado a cada cola.
 
 ## 1. Formato de la cola
 
-Cada cola es un buffer circular de `ie` elementos `Slot` (ver [Memoria compartida](Memoria-compartida)), precedido de su estructura de control `InQueueCtl`:
+Cada cola es un buffer circular de `ie` elementos `Slot` (ver [Memoria compartida](Memoria-compartida.md)), precedido de su estructura de control `InQueueCtl`:
 
 | Campo | Función |
 |---|---|
@@ -33,7 +33,7 @@ Cada línea que lee `reg` (de un archivo o de la entrada estándar) tiene la for
 | `<tipo>` | `B`, `D` o `S` |
 | `<cantidad>` | Entero `1 ≤ cantidad ≤ 5` |
 
-Las líneas vacías se ignoran. Las líneas con final `CRLF` se aceptan en ambos sistemas (se elimina el `\r`). Una línea inválida se informa por `stderr` con su número de línea y se omite. Ver [Mecanismo de los comandos](Mecanismo-de-los-comandos).
+Las líneas vacías se ignoran. Las líneas con final `CRLF` se aceptan en ambos sistemas (se elimina el `\r`). Una línea inválida se informa por `stderr` con su número de línea y se omite. Ver [Mecanismo de los comandos](Mecanismo-de-los-comandos.md).
 
 ## 3. Variables que ayudan a manejar la cola
 

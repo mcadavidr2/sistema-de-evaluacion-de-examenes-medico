@@ -1,8 +1,8 @@
 # Memoria compartida
 
-[Inicio](Home) · Anterior: [Programas y línea de comandos](Programas-y-linea-de-comandos) · Siguiente: [Bandeja de entrada](Bandeja-de-entrada)
+[Inicio](Home.md) · Anterior: [Programas y línea de comandos](Programas-y-linea-de-comandos.md) · Siguiente: [Bandeja de entrada](Bandeja-de-entrada.md)
 
-`init` crea **un único segmento** de memoria compartida. Todos los procesos (`reg`, `ctrl`, `rep`) lo abren por su nombre (`-n`, `-s` o `EVAL_SHM_NAME`). La disposición es idéntica en Linux y en Windows. Solo cambia cómo se crean los objetos de sincronización (ver [Concurrencia en Linux](Concurrencia-Linux) y [Concurrencia en Windows](Concurrencia-Windows)).
+`init` crea **un único segmento** de memoria compartida. Todos los procesos (`reg`, `ctrl`, `rep`) lo abren por su nombre (`-n`, `-s` o `EVAL_SHM_NAME`). La disposición es idéntica en Linux y en Windows. Solo cambia cómo se crean los objetos de sincronización (ver [Concurrencia en Linux](Concurrencia-Linux.md) y [Concurrencia en Windows](Concurrencia-Windows.md)).
 
 ## 1. Distribución del segmento
 
@@ -79,7 +79,7 @@ struct StatusEntry {           // lo que ctrl necesita ver de la memoria privada
 | Sistema | `PlatformSem` y `PlatformMutex` |
 |---|---|
 | Linux | `sem_t` y `pthread_mutex_t`, que viven dentro del segmento |
-| Windows | Estructura vacía. Los objetos son objetos del kernel con nombre derivado del nombre del segmento |
+| Windows | Guardan solo el nombre del objeto del kernel (`char name[96]`, por ejemplo `evaluator_inEmpty_3`). El objeto real es un semáforo o mutex con nombre `Local\<nombre>`; cada proceso lo abre la primera vez que lo usa y guarda el handle en una tabla propia |
 
 Los objetos globales (`idMutex`, `reactiveMutex`, `statusMutex`) se declaran también como `PlatformMutex` dentro del `Header`.
 
@@ -92,7 +92,7 @@ Las colas de entrada y la de salida son **buffers circulares de capacidad fija**
 - `count`: elementos presentes.
 - Avance: `tail = (tail + 1) % capacidad` y `head = (head + 1) % capacidad`.
 
-El detalle de cada cola está en [Bandeja de entrada](Bandeja-de-entrada) y [Bandeja de salida](Bandeja-de-salida).
+El detalle de cada cola está en [Bandeja de entrada](Bandeja-de-entrada.md) y [Bandeja de salida](Bandeja-de-salida.md).
 
 ## 4. Tabla de estado
 

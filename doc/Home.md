@@ -14,12 +14,14 @@
 
 | Requisito del enunciado | Página |
 |---|---|
-| Programas del sistema, línea de comandos y variables de ambiente | [Programas y línea de comandos](Programas-y-linea-de-comandos) |
-| Estructura completa de la bandeja de entrada (formato de la cola y variables de control) | [Memoria compartida](Memoria-compartida) y [Bandeja de entrada](Bandeja-de-entrada) |
-| Estructura completa de la bandeja de salida (formato de la cola y variables de control) | [Memoria compartida](Memoria-compartida) y [Bandeja de salida](Bandeja-de-salida) |
-| Estructuras para controlar la concurrencia en cada uno de los sistemas | [Concurrencia común](Concurrencia-comun), [Concurrencia en Linux](Concurrencia-Linux) y [Concurrencia en Windows](Concurrencia-Windows) |
-| Mecanismo completo de cada comando | [Mecanismo de los comandos](Mecanismo-de-los-comandos) |
-| Jerarquía del proyecto, pruebas, reparto de trabajo y puntos por confirmar | [Proyecto, pruebas y reparto de trabajo](Proyecto-pruebas-y-trabajo) |
+| Programas del sistema, línea de comandos y variables de ambiente | [Programas y línea de comandos](Programas-y-linea-de-comandos.md) |
+| Estructura completa de la bandeja de entrada (formato de la cola y variables de control) | [Memoria compartida](Memoria-compartida.md) y [Bandeja de entrada](Bandeja-de-entrada.md) |
+| Estructura completa de la bandeja de salida (formato de la cola y variables de control) | [Memoria compartida](Memoria-compartida.md) y [Bandeja de salida](Bandeja-de-salida.md) |
+| Estructuras para controlar la concurrencia en cada uno de los sistemas | [Concurrencia común](Concurrencia-comun.md), [Concurrencia en Linux](Concurrencia-Linux.md) y [Concurrencia en Windows](Concurrencia-Windows.md) |
+| Mecanismo completo de cada comando | [Mecanismo de los comandos](Mecanismo-de-los-comandos.md) |
+| Jerarquía del proyecto, pruebas, reparto de trabajo y puntos por confirmar | [Proyecto, pruebas y reparto de trabajo](Proyecto-pruebas-y-trabajo.md) |
+| Cómo ejecutar y probar el sistema, paso a paso, en Linux y Windows | [Guía de ejecución](Guia-de-ejecucion.md) |
+| Cómo quedó el código y decisiones de implementación | [Implementación](Implementacion.md) |
 
 ## Resumen del sistema
 

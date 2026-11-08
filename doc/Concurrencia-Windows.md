@@ -2,9 +2,9 @@
 
 **Responsable:** Sebastian Vasquez
 
-[Inicio](Home) · Anterior: [Concurrencia en Linux](Concurrencia-Linux) · Siguiente: [Mecanismo de los comandos](Mecanismo-de-los-comandos)
+[Inicio](Home.md) · Anterior: [Concurrencia en Linux](Concurrencia-Linux.md) · Siguiente: [Mecanismo de los comandos](Mecanismo-de-los-comandos.md)
 
-Esta página aplica a Windows el diseño de [Concurrencia común](Concurrencia-comun). Todo el código está en `src/platform/windows/`.
+Esta página aplica a Windows el diseño de [Concurrencia común](Concurrencia-comun.md). Todo el código está en `src/platform/windows/`.
 
 ## 1. Primitivas usadas
 
@@ -45,7 +45,8 @@ Los objetos son del kernel, así que **no** viven dentro del segmento. Cada proc
 
 Detalles:
 
-- **Semáforos:** el valor inicial es el de [Concurrencia común](Concurrencia-comun). El valor máximo es la capacidad de la cola (`ie` o `oe`).
+- **Semáforos:** el valor inicial es el de [Concurrencia común](Concurrencia-comun.md). El valor máximo es la capacidad de la cola (`ie` o `oe`).
+- **Dónde está el nombre:** `semInit` y `mutexInit` guardan el nombre del objeto dentro de `PlatformSem` / `PlatformMutex` (en el segmento). Cualquier proceso lo abre la primera vez que lo usa con `OpenSemaphoreW` / `OpenMutexW` y guarda el handle en una tabla propia (`unordered_map` protegida con `std::mutex`).
 - **Orden de creación:** `init` crea todos los objetos antes de escribir `Header.magic`, como en Linux.
 - **Mutex abandonado:** si un proceso muere con un mutex tomado, el siguiente que lo espera recibe `WAIT_ABANDONED`. Ese caso se trata como «tomado», se valida la cola afectada y se continúa.
 - **Propiedad:** un mutex de Windows debe liberarlo el mismo hilo que lo tomó. El protocolo cumple esto, porque cada mutex se toma y se suelta dentro de la misma función.
@@ -65,8 +66,8 @@ Con el evento de terminación, los procesos cliente se enteran al instante sin e
 ## 4. Terminación
 
 - `init` registra `SetConsoleCtrlHandler(manejador, TRUE)` para `CTRL_C_EVENT`, `CTRL_BREAK_EVENT` y `CTRL_CLOSE_EVENT`.
-- El manejador corre en un **hilo propio** que crea Windows. Debe ser breve: pone `Header.shuttingDown = 1`, llama a `SetEvent(shutdown)` y devuelve `TRUE`.
-- El hilo principal ejecuta la [terminación ordenada](Concurrencia-comun) y luego libera recursos.
+- El manejador corre en un **hilo propio** que crea Windows. Debe ser breve: solo señala un evento local (`SetEvent`) y devuelve `TRUE`. Con `CTRL_CLOSE_EVENT` espera 4 s antes de devolver, porque Windows mata el proceso poco después.
+- El hilo principal (que espera ese evento en `termWait`) ejecuta la [terminación ordenada](Concurrencia-comun.md): pone `Header.shuttingDown = 1`, llama a `SetEvent(<nombre>_shutdown)` para despertar a todos los procesos y luego libera recursos.
 
 ### Limpieza al terminar `init`
 
