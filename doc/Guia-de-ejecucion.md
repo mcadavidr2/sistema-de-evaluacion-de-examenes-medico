@@ -115,7 +115,7 @@ En Windows son 27 porque las pruebas 8 y 10 (señales) se hacen a mano, como se 
 
 **Wrapper desde otra carpeta.** Ejecute `evaluator rep -m 1` con la ruta completa desde otro directorio y sin `init` activo. Debe responder `el sistema 'evaluator' no existe` con código `2`: el wrapper encuentra los `eval-*` junto a sí mismo.
 
-## 4. Escenarios para mostrar en la sustentación
+## 4. Escenarios
 
 Use `EVAL_TIME_SCALE=10` salvo que se indique otra cosa.
 
